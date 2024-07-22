@@ -67,6 +67,15 @@ class DicomModalityPredictor:
             dicom_files = np.random.choice(dicom_files, size=sample_size, replace=False)
         
         return self.predict_file_list(dicom_files)
+    
+    def predict_mean_file_list(self, file_paths, sample_size=None, max_workers=None):
+        if sample_size and sample_size < len(file_paths):
+            sampled_files = np.random.choice(file_paths, size=sample_size, replace=False)
+        else:
+            sampled_files = file_paths
+
+        results = self.predict_file_list(sampled_files, max_workers=max_workers)
+        return self.compute_average_prediction(results)
 
     @staticmethod
     def compute_average_prediction(predictions):
