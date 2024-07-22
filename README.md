@@ -1,6 +1,6 @@
 # DCMP (DICOM Modality Predictor)
 
-DCMP is a Python package that predicts the modality of DICOM (Digital Imaging and Communications in Medicine) images using a pre-trained scikit-learn model. It provides functionality to process individual DICOM files, lists of files, and entire directories, with options for sampling and skipping specific folders.
+DCMP is a Python package that predicts the modality of DICOM (Digital Imaging and Communications in Medicine) images using a pre-trained scikit-learn model.
 
 ## Features
 
@@ -12,6 +12,33 @@ DCMP is a Python package that predicts the modality of DICOM (Digital Imaging an
 - Multithreaded processing for improved performance
 - Command-line interface for easy use
 - Comprehensive error handling and reporting
+
+## Dependencies
+
+DCMP relies on several Python libraries and system dependencies. Here's how to install them:
+
+### System Dependencies
+
+On Debian-based systems (like Ubuntu), you should install the necessary system dependencies for OpenCV with the following commands:
+
+```bash
+sudo apt update
+sudo apt install libopencv-dev python3-opencv
+```
+
+### Python Dependencies
+
+The main Python dependencies are:
+
+- numpy
+- pydicom
+- opencv-python
+- scikit-learn==1.4.0
+- joblib
+
+```bash
+pip install numpy pydicom opencv-python opencv-contrib-python scikit-learn==1.4.0 joblib
+```
 
 ## Installation
 
