@@ -86,8 +86,27 @@ for result in results:
         print(f"Error processing {result['filename']}: {result['error']}")
     print("---")
 ```
+#### Processing a single dicom series Directory
 
-#### Processing a Directory
+```python
+from dcmp import DicomModalityPredictor
+
+predictor = DicomModalityPredictor()
+
+results = predictor.predict_folder('/path/to/your/dicom-folder')
+
+for result in results:
+    if result['error'] is None:
+        print(f"File: {result['filename']}")
+        print(f"Predicted Modality: {result['predicted_modality']}")
+        print(f"Probability: {result['probability']:.4f}")
+    else:
+        print(f"Error processing {result['filename']}: {result['error']}")
+    print("---")
+```
+
+
+#### Processing a BIDS anat Directory
 
 ```python
 from dcmp import DicomModalityPredictor
@@ -95,7 +114,7 @@ from dcmp.utils import process_anat_folders
 
 predictor = DicomModalityPredictor()
 
-base_path = '/path/to/dicom/folders'
+base_path = '/path/to/BIDS-data-dcm/anat-folder'
 skip_keywords = ['localizer', 'scout', 'symri', 'swi']  # It will skip the folders that include these keywords
 sample_size = 20  # Process randomly up to 20 files per folder
 
