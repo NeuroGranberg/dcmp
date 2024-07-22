@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="dcmp",
-    version="0.1.1",  # Increment the version number
+    version="0.1.2",  # Increment the version number
     author="Nima Ch",
     author_email="nima.ch@gmail.com",
     description="A package to predict DICOM image modalities",

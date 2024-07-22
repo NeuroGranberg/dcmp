@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 dcmp/__init__.py

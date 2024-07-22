@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: dcmp
-Version: 0.1.1
+Version: 0.1.2
 Summary: A package to predict DICOM image modalities
 Home-page: https://github.com/NeuroGranberg/dcmp
 Author: Nima Ch
@@ -10,6 +10,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
+License-File: LICENSE
 Requires-Dist: numpy
 Requires-Dist: pydicom
 Requires-Dist: opencv-python
@@ -18,7 +19,7 @@ Requires-Dist: joblib
 
 # DCMP (DICOM Modality Predictor)
 
-DCMP is a Python package that predicts the modality of DICOM (Digital Imaging and Communications in Medicine) images using a pre-trained scikit-learn model. It provides functionality to process individual DICOM files, lists of files, and entire directories, with options for sampling and skipping specific folders.
+DCMP is a Python package that predicts the modality of DICOM (Digital Imaging and Communications in Medicine) images using a pre-trained scikit-learn model.
 
 ## Features
 
@@ -30,6 +31,33 @@ DCMP is a Python package that predicts the modality of DICOM (Digital Imaging an
 - Multithreaded processing for improved performance
 - Command-line interface for easy use
 - Comprehensive error handling and reporting
+
+## Dependencies
+
+DCMP relies on several Python libraries and system dependencies. Here's how to install them:
+
+### System Dependencies
+
+On Debian-based systems (like Ubuntu), you should install the necessary system dependencies for OpenCV with the following commands:
+
+```bash
+sudo apt update
+sudo apt install libopencv-dev python3-opencv
+```
+
+### Python Dependencies
+
+The main Python dependencies are:
+
+- numpy
+- pydicom
+- opencv-python
+- scikit-learn==1.4.0
+- joblib
+
+```bash
+pip install numpy pydicom opencv-python opencv-contrib-python scikit-learn==1.4.0 joblib
+```
 
 ## Installation
 
@@ -77,8 +105,27 @@ for result in results:
         print(f"Error processing {result['filename']}: {result['error']}")
     print("---")
 ```
+#### Processing a single dicom series Directory
 
-#### Processing a Directory
+```python
+from dcmp import DicomModalityPredictor
+
+predictor = DicomModalityPredictor()
+
+results = predictor.predict_folder('/path/to/your/dicom-folder')
+
+for result in results:
+    if result['error'] is None:
+        print(f"File: {result['filename']}")
+        print(f"Predicted Modality: {result['predicted_modality']}")
+        print(f"Probability: {result['probability']:.4f}")
+    else:
+        print(f"Error processing {result['filename']}: {result['error']}")
+    print("---")
+```
+
+
+#### Processing a BIDS anat Directory
 
 ```python
 from dcmp import DicomModalityPredictor
@@ -86,7 +133,7 @@ from dcmp.utils import process_anat_folders
 
 predictor = DicomModalityPredictor()
 
-base_path = '/path/to/dicom/folders'
+base_path = '/path/to/BIDS-data-dcm/anat-folder'
 skip_keywords = ['localizer', 'scout', 'symri', 'swi']  # It will skip the folders that include these keywords
 sample_size = 20  # Process randomly up to 20 files per folder
 
