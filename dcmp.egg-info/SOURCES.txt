@@ -12,3 +12,4 @@ dcmp.egg-info/entry_points.txt
 dcmp.egg-info/requires.txt
 dcmp.egg-info/top_level.txt
 dcmp/../model/mlp_9998.pkl
+dcmp/../model/mlp_agm_9993.pkl

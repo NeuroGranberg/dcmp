@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: dcmp
-Version: 0.1.2
+Version: 0.1.3
 Summary: A package to predict DICOM image modalities
 Home-page: https://github.com/NeuroGranberg/dcmp
 Author: Nima Ch

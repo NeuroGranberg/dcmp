@@ -12,7 +12,7 @@ from pkg_resources import resource_filename
 class DicomModalityPredictor:
     def __init__(self, model_path=None):
         if model_path is None:
-            model_path = resource_filename('dcmp', '../model/mlp_9998.pkl')
+            model_path = resource_filename('dcmp', '../model/mlp_agm_9993.pkl')
         self.model = joblib.load(model_path)
         if not isinstance(self.model, BaseEstimator):
             raise ValueError("The loaded model is not a scikit-learn estimator.")
@@ -84,10 +84,11 @@ class DicomModalityPredictor:
             return None, 0, len(predictions)
 
         modalities = [pred['predicted_modality'] for pred in valid_predictions]
-        probabilities = [pred['probability'] for pred in valid_predictions]
         
         modality_counts = Counter(modalities)
-        average_modality = modality_counts.most_common(1)[0][0]
-        average_probability = np.mean(probabilities)
+        most_common_modality, most_common_count = modality_counts.most_common(1)[0]
         
-        return average_modality, average_probability, len(valid_predictions)
+        # Calculate probability based on the count of the most common modality
+        probability = round(most_common_count / len(valid_predictions), 2)
+        
+        return most_common_modality, probability, len(valid_predictions)
